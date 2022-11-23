@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 
 class Extension(ext.Extension):
 
-    dist_name = "Mopidy-Raspberry-GPIO"
-    ext_name = "raspberry-gpio"
+    dist_name = "Mopidy-Raspberry-GPIO-moser"
+    ext_name = "raspberry-gpio-moser"
     version = __version__
 
     def get_default_config(self):
