@@ -5,7 +5,7 @@ from mopidy import config, ext
 
 from .pinconfig import PinConfig
 
-__version__ = "1.0.4"
+__version__ = "1.0.0"
 
 
 logger = logging.getLogger(__name__)
@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 
 class Extension(ext.Extension):
 
-    dist_name = "Mopidy-Raspberry-GPIO-moser"
-    ext_name = "raspberry-gpio-moser"
+    dist_name = "Mopidy-Moser-GPIO"
+    ext_name = "moser-gpio"
     version = __version__
 
     def get_default_config(self):
