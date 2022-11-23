@@ -14,7 +14,7 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
         import RPi.GPIO as GPIO
 
         self.core = core
-        self.config = config["raspberry-gpio"]
+        self.config = config["moser-gpio"]
         self.pin_settings = {}
         self.rot_encoders = {}
 
