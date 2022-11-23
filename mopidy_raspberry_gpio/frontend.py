@@ -66,6 +66,7 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
                 return encoder
 
     def gpio_event(self, pin):
+        print("gpio_event", pin)
         settings = self.pin_settings[pin]
         event = settings.event
         encoder = self.find_pin_rotenc(pin)
