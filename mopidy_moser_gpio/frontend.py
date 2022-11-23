@@ -7,6 +7,17 @@ from .rotencoder import RotEncoder
 
 logger = logging.getLogger(__name__)
 
+STATIONS = [
+    dict(
+        name="Rock Antenne",
+        uri="https://stream.rockantenne.de/rockantenne/stream/mp3",
+    ),
+    dict(
+        name="Bayern 1",
+        uri="https://dispatcher.rndfnk.com/br/br1/nbopf/mp3/mid",
+    ),
+]
+
 
 class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
     def __init__(self, config, core):
@@ -98,6 +109,9 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
         else:
             self.core.playback.play()
 
+    def handle_stop(self, config):
+        self.core.playback.stop()
+
     def handle_next(self, config):
         self.core.playback.next()
 
@@ -117,3 +131,17 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
         volume -= step
         volume = max(volume, 0)
         self.core.mixer.set_volume(volume)
+
+    def handle_station1(self, config):
+        self._handle_station(STATIONS[0])
+
+    def handle_station2(self, config):
+        self._handle_station(STATIONS[1])
+
+    def handle_station3(self, config):
+        self._handle_station(STATIONS[0])
+
+    def _handle_station(self, station):
+        self.core.tracklist.clear()
+        self.core.tracklist.add(uris=[station["uri"]])
+        self.core.playback.play()
