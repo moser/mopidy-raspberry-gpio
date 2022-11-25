@@ -82,7 +82,6 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
         event = settings.event
         encoder = self.find_pin_rotenc(pin)
         if encoder:
-            time.sleep(0.05)
             event = encoder.get_event()
 
         if event:
