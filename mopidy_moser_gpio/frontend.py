@@ -77,7 +77,6 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
                 return encoder
 
     def gpio_event(self, pin):
-        print("gpio_event", pin)
         logger.warning(f"gpio_event {pin}")
         settings = self.pin_settings[pin]
         event = settings.event
@@ -120,14 +119,14 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
 
     def handle_volume_up(self, config):
         step = int(config.get("step", 5))
-        volume = self.core.mixer.get_volume().get()
+        volume = self.core.mixer.get_volume().get() || 0
         volume += step
         volume = min(volume, 100)
         self.core.mixer.set_volume(volume)
 
     def handle_volume_down(self, config):
         step = int(config.get("step", 5))
-        volume = self.core.mixer.get_volume().get()
+        volume = self.core.mixer.get_volume().get() || 0
         volume -= step
         volume = max(volume, 0)
         self.core.mixer.set_volume(volume)
