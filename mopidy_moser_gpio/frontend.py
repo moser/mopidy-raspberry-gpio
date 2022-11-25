@@ -1,4 +1,4 @@
-import logging
+import logging, time
 
 import pykka
 from mopidy import core
@@ -77,7 +77,7 @@ class RaspberryGPIOFrontend(pykka.ThreadingActor, core.CoreListener):
                 return encoder
 
     def gpio_event(self, pin):
-        logger.warning(f"gpio_event {pin}")
+        logger.warning(f"gpio_event {pin} {time.time()}")
         settings = self.pin_settings[pin]
         event = settings.event
         encoder = self.find_pin_rotenc(pin)
